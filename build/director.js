@@ -298,6 +298,7 @@ Router.prototype.destroy = function () {
 
 Router.prototype.getPath = function () {
   var path = window.location.pathname;
+  path = path.replace(/\/$/, '');
   if (path.substr(0, 1) !== '/') {
     path = '/' + path;
   }

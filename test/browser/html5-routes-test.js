@@ -664,7 +664,7 @@ createTest('route should accept _ and . within parameters', {
 test('fire the correct route when initializing the router', function(){
 	var fired = [];
 	if (browser_history_support) {
-		window.history.pushState({}, 'Initial', '/initial');
+		window.history.pushState({}, 'Initial', '/initial/');
 	}
 	else {
 	  fired = ['/initial', 'initial'];
