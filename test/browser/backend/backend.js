@@ -3,7 +3,7 @@ var http     = require('http'),
 	path     = require('path'),
 	director = require('../../../lib/director'),
 	index;
-	
+
 var __filename = module.uri,
 	__dirname = path.dirname(__filename);	
 
@@ -34,7 +34,7 @@ function fileServer(folder, file) {
 	}
 
 	var filepath = path.resolve(root, folder, file);
-	
+
 	var res = this.res;
 
 	(fs.exists || path.exists)(filepath, function (exists) {

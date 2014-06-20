@@ -1,36 +1,5 @@
 var browser_history_support = (window.history != null ? window.history.pushState : null) != null;
 
-// This test doesn't use the createTest since createTest runs init on the router before
-// running the test, which is what we want to test.
-test('fire the correct route when initializing the router', function(){
-	var fired = [];
-	if (browser_history_support) {
-		window.history.pushState({}, 'Initial', '/initial');
-	}
-	else {
-	  fired = ['/initial', 'initial'];
-	}
-	var router = new Router();
-	router.mount({
-		'/initial': function(){
-		  fired.push('/initial');
-		},
-		'initial': function(){
-		  fired.push('initial');
-		},
-		'/': function(){
-		  fired.push('/');
-		}
-	});
-	router.configure({
-		run_handler_in_init: true,
-		html5history: true
-	});
-	router.init();
-	deepEqual(fired, ['/initial', 'initial']);
-	router.destroy();
-});
-
 createTest('Nested route with the many children as a tokens, callbacks should yield historic params', {
   '/a': {
     '/:id': {
@@ -690,3 +659,33 @@ createTest('route should accept _ and . within parameters', {
   });
 });
 
+// This test doesn't use the createTest since createTest runs init on the router before
+// running the test, which is what we want to test.
+test('fire the correct route when initializing the router', function(){
+	var fired = [];
+	if (browser_history_support) {
+		window.history.pushState({}, 'Initial', '/initial');
+	}
+	else {
+	  fired = ['/initial', 'initial'];
+	}
+	var router = new Router();
+	router.mount({
+		'/initial': function(){
+		  fired.push('/initial');
+		},
+		'initial': function(){
+		  fired.push('initial');
+		},
+		'/': function(){
+		  fired.push('/');
+		}
+	});
+	router.configure({
+		run_handler_in_init: true,
+		html5history: true
+	});
+	router.init();
+	deepEqual(fired, ['/initial', 'initial']);
+	router.destroy();
+});
