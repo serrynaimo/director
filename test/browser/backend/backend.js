@@ -3,6 +3,9 @@ var http     = require('http'),
 	path     = require('path'),
 	director = require('../../../lib/director'),
 	index;
+	
+var __filename = module.uri,
+	__dirname = path.dirname(__filename);	
 
 fs.readFile(path.join(__dirname, '..', 'html5-routes-harness.html'), function (err, data) {
 	if (err) {
@@ -20,12 +23,18 @@ var CONTENT_TYPES = {
 // Dummy file server
 function fileServer(folder, file) {
 	var root = path.resolve(__dirname, '..');
+
 	if (folder === 'build' || folder === 'node_modules') {
 		root = path.resolve(root, '..', '..');
 	}
 
-	var filepath = path.resolve(root, folder, file);
+	if(file === undefined) {
+		file = folder;
+		folder = '.';
+	}
 
+	var filepath = path.resolve(root, folder, file);
+	
 	var res = this.res;
 
 	(fs.exists || path.exists)(filepath, function (exists) {
